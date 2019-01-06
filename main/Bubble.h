@@ -1,14 +1,14 @@
-#ifndef SPARKLES_H
-#define SPARKLES_H
-#include "Entity.h"
+#ifndef Bubble_H
+#define Bubble_H
 
-class Sparkles : public Entity{
-
+#include "globals.h"
+class Bubble{
 public:
-  Sparkles();
+  Bubble();
   void draw(sf::RenderWindow &window);
   void tick();
-
+  bool isAlive();
+private:
   int r(){return rand()%255;};
   int d(){return rand()%360;};
   sf::CircleShape circle;
@@ -16,8 +16,8 @@ public:
   float velocity;
   int type=1;
   float radius=1;
-
-  bool isVisible();
+  float lifeTime;
+  sf::Clock clock;
 };
 
 #endif

@@ -1,2 +1,2 @@
-g++ main/*.cpp -o Galactic-Junkies-exec -lsfml-graphics -lsfml-window -lsfml-system
-xfce4-terminal -e ./Galactic-Junkies-exec
+g++ main/*.cpp -o Bubbles-on-LSD-exec -lsfml-graphics -lsfml-window -lsfml-system
+./Bubbles-on-LSD-exec

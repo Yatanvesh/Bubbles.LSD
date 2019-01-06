@@ -1,29 +1,28 @@
-#include <iostream>
 #include <time.h>
-#include <SFML/Graphics.hpp>
-//#include <SFML/Audio.hpp>
-#include "Ship.h"
-#include "Enemy.h"
-#include "View.h"
-#include "Sparkles.h"
+#include <stdio.h>
+#include <SFML/Window.hpp>
+#include "BubbleFactory.h"
+#include <iostream>
 
 void globalInit();
 
-int main(){
+int main(int argc, char* argv[]){
   srand (time(NULL));
   globalInit();
 
-  sf::RenderWindow window(sf::VideoMode(SCREEN_DIMS.x,SCREEN_DIMS.y), "Galactic Junkies");
+  if (argc>1){
+      int resolution;
+      sscanf(argv[1], "%d", &resolution);
+      printf("%d",resolution);
+      SCREEN_DIMS.x= SCREEN_DIMS.y = resolution;
+      SCREEN_CENTRE.x = SCREEN_DIMS.x/2;
+      SCREEN_CENTRE.y = SCREEN_DIMS.y/2;
+  }
+
+  sf::RenderWindow window(sf::VideoMode(SCREEN_DIMS.x,SCREEN_DIMS.y), "Bubbles on LSD");
   window.setVerticalSyncEnabled(true);
-  Ship playerShip;
-  Enemy enemy;
-  Sparkles s[1000];
 
-  sf::Texture bT;
-  bT.loadFromFile("./main/assets/img/bb.png");
-  sf::Sprite b(bT);
-
-  View view(sf::FloatRect(800,800,800,800),&playerShip.sprite,&window);
+  BubbleFactory BubbleFactory;
 
   while(window.isOpen()){
     sf::Event event;
@@ -32,30 +31,18 @@ int main(){
         window.close();
     }
 
-    playerShip.tick();
-    for (size_t i = 0; i < 1000; i++) {
-      s[i].tick();
-    }
+    BubbleFactory.tick();
 
-
-
-    //view.focus();
     window.clear();
-    window.draw(b);
-    playerShip.draw(window);
-    enemy.draw(window);
-    for (size_t i = 0; i < 1000; i++) {
-      s[i].draw(window);
-    }
-
+    BubbleFactory.draw(window);
     window.display();
   }
   return 0;
 }
 
 void globalInit(){
-  SCREEN_DIMS.x= 800;
-  SCREEN_DIMS.y=800;
+  SCREEN_DIMS.x= 1080;
+  SCREEN_DIMS.y=1080;
   SCREEN_CENTRE.x = SCREEN_DIMS.x/2;
   SCREEN_CENTRE.y = SCREEN_DIMS.y/2;
 }
