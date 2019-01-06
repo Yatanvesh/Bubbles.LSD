@@ -1,4 +1,5 @@
 #include "globals.h"
 
-pair<int,int> screenDims;
-pair<int,int> screenCentre;
+sf::Vector2f SCREEN_DIMS;
+sf::Vector2f SCREEN_CENTRE;
+sf::Vector2f playerPosition;
